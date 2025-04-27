@@ -17,7 +17,7 @@ def download_image(url, img_name):
     
     output_path = screenshots_path + img_name
     
-    response = requests.get(url, stream=True)
+    response = requests.get(url.strip(), stream=True)
     response.raise_for_status()
     
     with open(output_path, "wb") as img:
