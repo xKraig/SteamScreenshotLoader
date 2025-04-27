@@ -84,13 +84,17 @@ with open("urls.txt","r") as url_file:
     os.makedirs(screenshots_path, exist_ok=True)
     os.makedirs(screenshots_path + "thumbnails/", exist_ok=True)
     
+    counter = 1
+    total = sum(1 for line in url_file)
+    url_file.seek(0)
+    
     for line in url_file:
         img_name = hashlib.blake2s(line.encode(), digest_size=4).hexdigest() + ".jpg"
         
-        print("Downloading .. " + img_name)
+        print(f"[{counter}/{total}]" + img_name)
         download_image(line, img_name)
         create_thumbnail(img_name)
-        
+        counter += 1
     write_screenshots_vdf()
         
     print("Done")
